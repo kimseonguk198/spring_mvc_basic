@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p id = name>not received name</p>
+<p id = age>not received age</p>
+
+<div>
+    <button id="hello-string">data 호출1</button>
+    <button id="hello-json">data 호출2</button>
+</div>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#hello-string').click(function() {
+      $.ajax({
+        dataType: "text",
+        type: "GET",
+        url: 'http://localhost:8080/hello-string',
+        success: function(data) {
+          let str = document.getElementById("name");
+          str.innerHTML = data;
+
+        }
+      });
+    });
+    $('#hello-json').click(function() {
+      $.ajax({
+        url: 'http://localhost:8080/hello-json',
+        dataType: "json",
+        type: "GET",
+        contentType: "application/json",
+        success: function(data) {
+          let str = document.getElementById("name");
+          str.innerHTML = data.name;
+          let str2 = document.getElementById("age");
+          str2.innerHTML = data.age;
+        },
+      });
+    });
+  });
+</script>
+</body>
+</html>
